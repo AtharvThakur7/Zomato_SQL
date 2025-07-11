@@ -1,21 +1,31 @@
-# SQL Project: Data Analysis for Zomato - A Food Delivery Company
+# Zomato Cloud Data Pipeline for Scalable Analytics
 
 ## Overview
 
-This project demonstrates my SQL problem-solving skills through the analysis of data for Zomato, a popular food delivery company in India. The project involves setting up the database, importing data, handling null values, and solving a variety of business problems using complex SQL queries.
+Designed a cloud-native SQL analytics pipeline for Zomato using AWS RDS and S3, enabling real-time ingestion via Snowpipe into Snowflake. Normalized raw OLTP data into clean schemas to deliver insights on customers, orders, restaurants, and rider performance.
 
-## Project Structure
+## Project architecture 
 
-- **Database Setup:** Creation of the `zomato_db` database and the required tables.
-- **Data Import:** Inserting sample data into the tables.
-- **Data Cleaning:** Handling null values and ensuring data integrity.
-- **Business Problems:** Solving 20 specific business problems using SQL queries.
+!()[]  
 
+
+1. Data Ingestion (OLTP → Data Lake):
+Operational data from a normalized PostgreSQL RDS database is exported daily to AWS S3, serving as the raw data lake.
+
+2. Real-Time Loading & Transformation (S3 → Snowflake):
+Using Snowpipe, data is auto-ingested into raw tables in Snowflake. Data types (especially date/time) are normalized in clean tables using SQL-based ELT logic.
+
+3. Analytics & Insights Layer:
+Advanced SQL queries are performed on the clean layer to uncover business insights across customers, restaurants, orders, and riders.
+
+
+
+## DataBase Schema : 
 ![ERD](https://github.com/AtharvThakur7/Zomato_SQL/blob/main/erd.png)
 
 ## Database Setup
 ```sql
-CREATE DATABASE zomato_db;
+CREATE DATABASE zomato_db;chat
 ```
 
 ### 1. Dropping Existing Tables
