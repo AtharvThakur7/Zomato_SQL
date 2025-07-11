@@ -549,6 +549,8 @@ restaurants as r
 ON o.restaurant_id = r.restaurant_id
 GROUP BY 1;
 ```
+## Future Add-Ons are : 
+Goal: Build a dynamic and interactive dashboard to visualize key business insights uncovered from the data analysis.
 
 ## Conclusion
 
