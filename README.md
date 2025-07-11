@@ -10,7 +10,7 @@ Designed a cloud-native SQL analytics pipeline for Zomato using AWS RDS and S3, 
 
 
 1. Data Ingestion (OLTP → Data Lake):
-Operational data from a normalized PostgreSQL RDS database is exported daily to AWS S3, serving as the raw data lake.
+Operational data from a normalized MYSql RDS database is exported daily to AWS S3, serving as the raw data lake.
 
 2. Real-Time Loading & Transformation (S3 → Snowflake):
 Using Snowpipe, data is auto-ingested into raw tables in Snowflake. Data types (especially date/time) are normalized in clean tables using SQL-based ELT logic.
