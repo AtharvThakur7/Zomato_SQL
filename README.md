@@ -6,7 +6,7 @@ Designed a cloud-native SQL analytics pipeline for Zomato using AWS RDS and S3, 
 
 ## Project architecture 
 
-!()[]  
+![](https://github.com/AtharvThakur7/Zomato_SQL/blob/4748ce19f234ed8c68ae8f0a56c3a8843d46f22f/Screenshot%202025-07-11%20141253.png)
 
 
 1. Data Ingestion (OLTP → Data Lake):
@@ -23,10 +23,7 @@ Advanced SQL queries are performed on the clean layer to uncover business insigh
 ## DataBase Schema : 
 ![ERD](https://github.com/AtharvThakur7/Zomato_SQL/blob/main/erd.png)
 
-## Database Setup
-```sql
-CREATE DATABASE zomato_db;chat
-```
+
 
 ### 1. Dropping Existing Tables
 ```sql
