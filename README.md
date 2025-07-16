@@ -1,85 +1,43 @@
-# SQL Project: Data Analysis for Zomato - A Food Delivery Company
+# Zomato Cloud Data Pipeline for Scalable Analytics
 
 ## Overview
 
-This project demonstrates my SQL problem-solving skills through the analysis of data for Zomato, a popular food delivery company in India. The project involves setting up the database, importing data, handling null values, and solving a variety of business problems using complex SQL queries.
+Designed a cloud-native SQL analytics pipeline for Zomato using AWS RDS and S3, enabling real-time ingestion via Snowpipe into Snowflake. Normalized raw OLTP data into clean schemas to deliver insights on customers, orders, restaurants, and rider performance.
 
-## Project Structure
+## Project architecture 
 
-- **Database Setup:** Creation of the `zomato_db` database and the required tables.
-- **Data Import:** Inserting sample data into the tables.
-- **Data Cleaning:** Handling null values and ensuring data integrity.
-- **Business Problems:** Solving 20 specific business problems using SQL queries.
+![](https://github.com/AtharvThakur7/Zomato_SQL/blob/4748ce19f234ed8c68ae8f0a56c3a8843d46f22f/Screenshot%202025-07-11%20141253.png)
 
+
+1. Data Ingestion (OLTP → Data Lake):
+Operational data from a normalized MYSql RDS database is exported daily to AWS S3, serving as the raw data lake.
+
+2. Real-Time Loading & Transformation (S3 → Snowflake):
+Using Snowpipe, data is auto-ingested into raw tables in Snowflake. Data types (especially date/time) are normalized in clean tables using SQL-based ELT logic.
+
+3. Analytics & Insights Layer:
+Advanced SQL queries are performed on the clean layer to uncover business insights across customers, restaurants, orders, and riders.
+
+
+
+## DataBase Schema : 
 ![ERD](https://github.com/AtharvThakur7/Zomato_SQL/blob/main/erd.png)
 
-## Database Setup
-```sql
-CREATE DATABASE zomato_db;
-```
+Relationships are normalized to ensure consistency and ease of querying.
 
-### 1. Dropping Existing Tables
-```sql
-DROP TABLE IF EXISTS deliveries;
-DROP TABLE IF EXISTS Orders;
-DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS restaurants;
-DROP TABLE IF EXISTS riders;
 
--- 2. Creating Tables
-CREATE TABLE restaurants (
-    restaurant_id SERIAL PRIMARY KEY,
-    restaurant_name VARCHAR(100) NOT NULL,
-    city VARCHAR(50),
-    opening_hours VARCHAR(50)
-);
+## Tools & Technologies Used
 
-CREATE TABLE customers (
-    customer_id SERIAL PRIMARY KEY,
-    customer_name VARCHAR(100) NOT NULL,
-    reg_date DATE
-);
+| Tool       | Purpose                                        |
+|------------|------------------------------------------------|
+| **AWS RDS**   | Source OLTP database (PostgreSQL)             |
+| **AWS S3**    | Intermediate data lake                        |
+| **Snowflake** | Data warehousing, ELT, and analytics          |
+| **Snowpipe**  | Real-time data ingestion into Snowflake       |
+| **SQL**       | Data transformation and business logic        |
+| **GitHub**    | Version control and collaboration             |
 
-CREATE TABLE riders (
-    rider_id SERIAL PRIMARY KEY,
-    rider_name VARCHAR(100) NOT NULL,
-    sign_up DATE
-);
 
-CREATE TABLE Orders (
-    order_id SERIAL PRIMARY KEY,
-    customer_id INT,
-    restaurant_id INT,
-    order_item VARCHAR(255),
-    order_date DATE NOT NULL,
-    order_time TIME NOT NULL,
-    order_status VARCHAR(20) DEFAULT 'Pending',
-    total_amount DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id)
-);
-
-CREATE TABLE deliveries (
-    delivery_id SERIAL PRIMARY KEY,
-    order_id INT,
-    delivery_status VARCHAR(20) DEFAULT 'Pending',
-    delivery_time TIME,
-    rider_id INT,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (rider_id) REFERENCES riders(rider_id)
-);
-```
-
-## Data Import
-
-## Data Cleaning and Handling Null Values
-
-Before performing analysis, I ensured that the data was clean and free from null values where necessary. For instance:
-
-```sql
-UPDATE orders
-SET total_amount = COALESCE(total_amount, 0);
-```
 
 ## Business Problems Solved
 
@@ -591,6 +549,8 @@ restaurants as r
 ON o.restaurant_id = r.restaurant_id
 GROUP BY 1;
 ```
+## Future Add-Ons are : 
+Goal: Build a dynamic and interactive dashboard to visualize key business insights uncovered from the data analysis.
 
 ## Conclusion
 
